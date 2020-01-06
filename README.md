@@ -14,4 +14,6 @@ Ivan Lin and Jimmy Luo Period 5
    - A linked list of arrays that would store match history. 
    - Bets and current balance will be kept in a text file.
 4. Expected Dates
-   - ... 
+   - 1/9: C program to control and deal with the deck
+   - 
+   - 1/17: Finish 
