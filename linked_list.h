@@ -7,5 +7,4 @@ void print_list(struct card *);
 struct card * insert_front(struct card *, int value, char s);
 struct card * free_list(struct card *);
 struct card * remove_card(struct card *front, int data);
-void shuffle(struct card * deck);
-void swap(struct card * deck, int first, int second);
+struct card * find_node(struct card * deck, int index);
