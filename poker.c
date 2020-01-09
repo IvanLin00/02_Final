@@ -7,14 +7,10 @@
 int main(){
   srand(time(NULL));
   struct card * deck = create_deck();
-  for(int i = 0; i<7; i++){
-    shuffle(deck);
-  }
   print_list(deck);
   for(int i = 0; i< 3; i++){
-    deal_card(deck);
-    printf("after deal");
-    print_list(deck);
+    printf("after deal\n");
+    print_list(deal_card(deck));
   }
   return 0;
 }

@@ -21,7 +21,9 @@ struct card * create_deck(){
 			face_value = 1;
 		}
 	}
-	shuffle(first);
+	for(int i = 0; i<7; i++){
+    shuffle(first);
+  }
 	return first;
 }
 
