@@ -2,8 +2,6 @@
 #include <stdio.h>
 #include "linked_list.h"
 
-#define LIST_SIZE 52
-
 void print_list(struct card *n){
   printf("[ ");
   while(n->next != NULL){
