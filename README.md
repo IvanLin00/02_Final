@@ -18,5 +18,14 @@ Ivan Lin and Jimmy Luo Period 5
    - 1/11: Make networking server work 
    - 1/15: Implement rules for game
    - 1/17: Hopefully finish
-# Dev Log :(
-Day 1: Life is hard pls save
+# Dev Log 
+1/9/2020: 
+   - create deck: done in class together
+      creates a standard deck of cards, linked list of 52 cards
+   - shuffle deck: Jimmy Luo
+      swaps a card with a card in a random position 52 times
+   - deal card: Jimmy Luo
+      currently not functional
+      idea: move front node to next node and free the front node
+      
+   
