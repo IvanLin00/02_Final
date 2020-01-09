@@ -6,5 +6,5 @@ struct card{
 void print_list(struct card *);
 struct card * insert_front(struct card *, int value, char s);
 struct card * free_list(struct card *);
-struct card * remove_card(struct card *front, int data);
+struct card * remove_front(struct card *front);
 struct card * find_node(struct card * deck, int index);

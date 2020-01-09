@@ -4,7 +4,7 @@
 #include <stdio.h>
 #include <time.h>
 
-#define DECK_SIZE 52
+#define DECK_SIZE 5
 
 struct card * create_deck(){
 	struct card * first = malloc(sizeof(struct card));
@@ -44,5 +44,5 @@ void swap(struct card * deck, int first, int second){
 }
 
 struct card * deal_card(struct card * deck){
-	return deck;
+	return remove_front(deck);
 }
