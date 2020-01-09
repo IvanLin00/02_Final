@@ -17,3 +17,5 @@ Ivan Lin and Jimmy Luo Period 5
    - 1/9: C program to control and deal with the deck
    - 
    - 1/17: Finish 
+# Dev Log :(
+Day 1: Life is hard pls save
