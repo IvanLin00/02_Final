@@ -26,6 +26,6 @@ Ivan Lin and Jimmy Luo Period 5
       - swaps a card with a card in a random position 52 times
    - deal card: Jimmy Luo
       - currently not functional
-      - idea: move front node to next node and free the front node
+      - idea: move front card node to next card node and free the front card node
       
    
