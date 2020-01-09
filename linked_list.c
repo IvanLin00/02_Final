@@ -2,18 +2,16 @@
 #include <stdio.h>
 #include "linked_list.h"
 
-// void print_list(struct card *n ){
-// 	 printf("[");
-// 	 while(n != NULL){
-// 		 if(n->next == NULL){
-// 			 printf("%d",n->i);
-// 			 break;
-// 		 }
-// 		 printf("%d,",n->i);
-// 		 n = n->next;
-// 	 }
-// 	 printf("]\n");
-// }
+#define LIST_SIZE 52
+
+void print_list(struct card *n){
+  printf("[ ");
+  while(n->next != NULL){
+    printf("%d of %c\n", n->face, n->suit );
+    n = n->next;
+  }
+  printf("]\n");
+}
 
 struct card * insert_front(struct card *n, int value, char s){
 	 struct card *n1 = malloc(sizeof(struct card));
@@ -22,6 +20,31 @@ struct card * insert_front(struct card *n, int value, char s){
 	 n1 -> next = n;
 	 return n1;
 }
+
+struct card * find_node(struct card *n, int index){
+	struct card *find = n;
+	if(index == 0) return find;
+	return find_node(find->next,index - 1);
+}
+
+void shuffle (struct card *deck){
+	for (int i = 0; i < LIST_SIZE; i++)
+		swap(deck, i, rand()%5);
+}
+
+void swap(struct card * deck, int first, int second){
+	struct card * first_holder = find_node(deck, first);
+	int first_face = first_holder->face;
+	char first_suit = first_holder->suit;
+	struct card * second_holder = find_node(deck, second);
+	int second_face = second_holder->face;
+	char second_suit = second_holder->suit;
+	first_holder->face = second_face;
+	first_holder->suit = second_suit;
+	second_holder->face = first_face;
+	second_holder->suit = first_suit;
+}
+
 
 // struct card * free_list(struct card *n){
 // 	 struct card *freecard = n;

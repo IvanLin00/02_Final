@@ -4,7 +4,7 @@
 #include <stdio.h>
 #include <time.h>
 
-#define DECK_SIZE 5
+#define DECK_SIZE 52
 
 struct card * create_deck(){
 	struct card * first = malloc(sizeof(struct card));
@@ -12,7 +12,8 @@ struct card * create_deck(){
 	char suit = 'd';
 	for(int i = 0; i < DECK_SIZE; i++){
 		first = insert_front(first, face_value, suit);
-		if(face_value == 13){
+		face_value++;
+		if(face_value == 14){
 			if(suit == 's') break;
 			if(suit == 'h') suit = 's';
 			if(suit == 'c') suit = 'h';
@@ -20,17 +21,6 @@ struct card * create_deck(){
 			face_value = 1;
 		}
 	}
-	//shuffle();
+	shuffle(first);
 	return first;
-}
-
-void shuffle (int deck[DECK_SIZE]){
-	for (int i = 0; i < DECK_SIZE; i++)
-		swap(deck, i, rand()%5);
-}
-
-void swap(int deck[DECK_SIZE], int first, int second){
-	int holder = deck[second];
-	deck[second] = deck[first];
-	deck[first] = holder;
 }
