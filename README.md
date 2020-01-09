@@ -15,7 +15,8 @@ Ivan Lin and Jimmy Luo Period 5
    - Bets and current balance will be kept in a text file.
 4. Expected Dates
    - 1/9: C program to control and deal with the deck
-   - 
-   - 1/17: Finish 
+   - 1/11: Make networking server work 
+   - 1/15: Implement rules for game
+   - 1/17: Hopefully finish
 # Dev Log :(
 Day 1: Life is hard pls save
