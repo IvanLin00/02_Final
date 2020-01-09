@@ -10,7 +10,11 @@ int main(){
   print_list(deck);
   for(int i = 0; i< 3; i++){
     printf("after deal\n");
-    print_list(deal_card(deck));
+    //deal_card(deck);      dont know why this doesnt work
+    struct card *cardToRemove = deck;
+    deck = deck->next;
+    free(cardToRemove);
+    print_list(deck);
   }
   return 0;
 }
