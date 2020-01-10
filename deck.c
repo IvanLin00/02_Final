@@ -1,10 +1,5 @@
 #include "deck.h"
 #include "linked_list.h"
-#include <stdlib.h>
-#include <stdio.h>
-#include <time.h>
-
-#define DECK_SIZE 5
 
 struct card * create_deck(){
 	struct card * first = malloc(sizeof(struct card));
@@ -21,15 +16,13 @@ struct card * create_deck(){
 			face_value = 1;
 		}
 	}
-	for(int i = 0; i<7; i++){
-    shuffle(first);
-  }
+	shuffle(first);
 	return first;
 }
 
 void shuffle (struct card *deck){
 	for (int i = 0; i < DECK_SIZE; i++)
-		swap(deck, i, rand()%5);
+		swap(deck, i, rand()%DECK_SIZE);
 }
 
 void swap(struct card * deck, int first, int second){
@@ -46,5 +39,16 @@ void swap(struct card * deck, int first, int second){
 }
 
 struct card * deal_card(struct card * deck){
+	struct card * first = malloc(sizeof(struct card));
+	struct card * second = malloc(sizeof(struct card));
+	first -> face = deck -> face;
+	first -> suit = deck -> suit;
+	first -> next = second;
+	second -> next = NULL;
+	print_list(first);
+	free(first);
+	first = NULL;
+	free(second);
+	second = NULL;
 	return remove_front(deck);
 }

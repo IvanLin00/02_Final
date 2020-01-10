@@ -1,3 +1,8 @@
+#include <stdlib.h>
+#include <stdio.h>
+#include <time.h>
+#define DECK_SIZE 5
+
 struct card * deal_card(struct card * deck);
 struct card * create_deck();
 void shuffle(struct card * deck);

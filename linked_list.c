@@ -4,8 +4,12 @@
 
 void print_list(struct card *n){
   printf("[ ");
-  while(n->next != NULL){
-    printf("%d of %c | ", n->face, n->suit );
+  while(n -> next != NULL){
+    if(n->face == 11) printf("jack of %c | ", n->suit );
+    else if(n->face == 12) printf("queen of %c | ", n->suit );
+    else if(n->face == 13) printf("king of %c | ", n->suit );
+    else if(n->face == 1) printf("ace of %c | ", n->suit );
+    else printf("%d of %c | ", n->face, n->suit );
     n = n->next;
   }
   printf("]\n");
