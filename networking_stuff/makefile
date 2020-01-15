@@ -1,30 +1,20 @@
-forking: make_game fserver
+main_server: main_server.o networking.o
+	gcc -o main_server.o networking.o
 
-select: sclient sserver
-
-sserver: select_server.o networking.o
-	gcc -o server select_server.o networking.o
-
-fserver: forking_server.o networking.o
-	gcc -o server forking_server.o networking.o
-
-sclient: select_client.o networking.o
-	gcc -o client select_client.o networking.o
+join_game: join_game.o networking.o
+	gcc -o join_game join_game.o networking.o
 
 make_game: make_game.o networking.o
 	gcc -o make_game make_game.o networking.o
 
-select_client.o: select_client.c networking.h
-	gcc -c select_client.c
+make_game.o: make_game.c networking.h
+	gcc -c make_game.c
 
-make_client.o: make_client.c networking.h
-	gcc -c make_client.c
+main_server.o: main_server.c networking.h
+	gcc -c main_server.c
 
-select_server.o: select_server.c networking.h
-	gcc -c select_server.c
-
-forking_server.o: forking_server.c networking.h
-	gcc -c forking_server.c
+join_game.o: join_game.c networking.h
+	gcc -c join_game.c
 
 networking.o: networking.c networking.h
 	gcc -c networking.c
