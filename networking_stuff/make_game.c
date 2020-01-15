@@ -6,16 +6,16 @@ int main(int argc, char **argv){
   char buffer[BUFFER_SIZE];
 
   while(1){
-    printf("Enter p for poker:\n");
+    printf("Enter poker for poker:\n");
     fgets(buffer, sizeof(buffer), stdin);
     *strchr(buffer, '\n') = 0;
-    if(!strcmp(buffer,"p")){
+    if(strcmp(buffer,"poker")){
       printf("Error. Emergency Exit\n");
       return 0;
     }
     printf("Enter your IP Address:\n");
     fgets(buffer, sizeof(buffer), stdin);
-    //if(buffer[BUFFER_SIZE - 1] == '\n') buffer[BUFFER_SIZE - 1] = 0;
+    *strchr(buffer, '\n') = 0;
     if(argc == 2) server_socket = client_setup(argv[1]);
     else server_socket = client_setup(buffer);
 

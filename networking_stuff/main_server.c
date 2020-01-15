@@ -10,7 +10,6 @@ int main() {
   listen_socket = server_setup();
 
   while (1) {
-
     int client_socket = server_connect(listen_socket);
     f = fork();
     if (f == 0)
@@ -28,7 +27,7 @@ void subserver(int client_socket) {
     printf("[subserver %d] received: [%s]\n", getpid(), buffer);
     process(buffer);
     write(client_socket, buffer, sizeof(buffer));
-  }//end read loop
+  }
   close(client_socket);
   exit(0);
 }

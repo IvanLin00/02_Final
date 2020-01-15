@@ -1,10 +1,6 @@
-main_server: main_server.o networking.o
-	gcc -o main_server.o networking.o
-
-join_game: join_game.o networking.o
+game_setup: main_server.o networking.o join_game.o networking.o make_game.o networking.o
+	gcc -o main_server main_server.o networking.o
 	gcc -o join_game join_game.o networking.o
-
-make_game: make_game.o networking.o
 	gcc -o make_game make_game.o networking.o
 
 make_game.o: make_game.c networking.h
