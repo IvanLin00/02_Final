@@ -1,30 +1,20 @@
 #include "networking.h"
 
-void process(char *s);
-void subserver(int from_client);
-
 int main() {
 
-  int listen_socket;
-  int client_socket;
-  int f;
+  int listen_socket, client_socket, f;
   int subserver_count = 0;
   char buffer[BUFFER_SIZE];
 
-  //set of file descriptors to read from
   fd_set read_fds;
 
   listen_socket = server_setup();
 
   while (1) {
-
-    //select() modifies read_fds
-    //we must reset it at each iteration
-    FD_ZERO(&read_fds); //0 out fd set
+    FD_ZERO(&read_fds);
     FD_SET(STDIN_FILENO, &read_fds); //add stdin to fd set
-    FD_SET(listen_socket, &read_fds); //add socket to fd set
+    FD_SET(listen_socket, &read_fds);
 
-    //select will block until either fd is ready
     select(listen_socket + 1, &read_fds, NULL, NULL, NULL);
 
     //if listen_socket triggered select
