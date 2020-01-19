@@ -16,7 +16,10 @@ int main(int argc, char **argv){
     printf("Enter your IP Address: ");
     fgets(buffer, sizeof(buffer), stdin);
     *strchr(buffer, '\n') = 0;
-    server_socket = client_setup(buffer);
+    if(argc == 2) server_socket = client_setup(argv[1]);
+    else server_socket = client_setup(buffer);
+    write(server_socket, buffer, sizeof(buffer));
+    read(server_socket, buffer, sizeof(buffer));
 
     printf("Waiting for players... Type start if all players joined\n");
     fgets(buffer, sizeof(buffer), stdin);
