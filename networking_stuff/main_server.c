@@ -3,6 +3,9 @@
 void process(char *s);
 void subserver(int from_client);
 
+//count how many people joined the same game through main server and then automatically start?
+//
+
 int main() {
 
   int listen_socket;
@@ -23,11 +26,11 @@ void subserver(int client_socket) {
   char buffer[BUFFER_SIZE];
 
   while (read(client_socket, buffer, sizeof(buffer))) {
-
     printf("[subserver %d] received: [%s]\n", getpid(), buffer);
     process(buffer);
     write(client_socket, buffer, sizeof(buffer));
-  }
+    //connects the games with same ip addresses together
+  }//end read loop
   close(client_socket);
   exit(0);
 }

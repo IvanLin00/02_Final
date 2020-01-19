@@ -2,62 +2,33 @@
 
 int main() {
 
-  int listen_socket, client_socket, f;
-  int subserver_count = 0;
+  int server_socket;
+  //int listen_socket, client_socket;
   char buffer[BUFFER_SIZE];
 
   fd_set read_fds;
 
-  listen_socket = server_setup();
-
   while (1) {
-    FD_ZERO(&read_fds);
-    FD_SET(STDIN_FILENO, &read_fds); //add stdin to fd set
-    FD_SET(listen_socket, &read_fds);
-
-    select(listen_socket + 1, &read_fds, NULL, NULL, NULL);
-
-    if (FD_ISSET(listen_socket, &read_fds)) {
-     client_socket = server_connect(listen_socket);
-
-     f = fork();
-     if (f == 0)
-       subserver(client_socket);
-     else {
-       subserver_count++;
-       close(client_socket);
-     }
+    printf("Enter p for poker: ");
+    fgets(buffer, sizeof(buffer), stdin);
+    *strchr(buffer, '\n') = 0;
+    if(strcmp(buffer,"p")){
+      printf("Error. Emergency Exit\n");
+      return 0;
     }
 
-    if (FD_ISSET(STDIN_FILENO, &read_fds)) {
-      fgets(buffer, sizeof(buffer), stdin);
-      printf("[server] subserver count: %d\n", subserver_count);
-    }
-  }
-}
+    //listen_socket = server_setup();
+    //printf("Please wait for an opponent...\n\n");
 
-void subserver(int client_socket) {
-  char buffer[BUFFER_SIZE];
+    //client_socket = server_connect(listen_socket);
+    //printf("Opponent found!\n\n");
 
-  strncpy(buffer, "hello client", sizeof(buffer));
-  write(client_socket, buffer, sizeof(buffer));
+    //not sure if these lines of code should be in join or make
 
-  while (read(client_socket, buffer, sizeof(buffer))) {
-
-    printf("[subserver %d] received: [%s]\n", getpid(), buffer);
-    process(buffer);
-    write(client_socket, buffer, sizeof(buffer));
-  }
-  close(client_socket);
-  exit(0);
-}
-
-void process(char * s) {
-  while (*s) {
-    if (*s >= 'a' && *s <= 'z')
-      *s = ((*s - 'a') + 13) % 26 + 'a';
-    else  if (*s >= 'A' && *s <= 'Z')
-      *s = ((*s - 'a') + 13) % 26 + 'a';
-    s++;
+    printf("Enter your IP Address: ");
+    fgets(buffer, sizeof(buffer), stdin);
+    *strchr(buffer, '\n') = 0;
+    server_socket = client_setup(buffer);
+    printf("Connected!\nWaiting for other players...");
   }
 }
