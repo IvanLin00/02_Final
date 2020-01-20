@@ -7,4 +7,5 @@ void print_list(struct card *);
 struct card * insert_front(struct card *, int value, char s);
 struct card * free_list(struct card *);
 struct card * remove_front(struct card *front);
-struct card * find_node(struct card * deck, int index);
+struct card * find_card(struct card * deck, int index);
+int listsize(struct card *cards);

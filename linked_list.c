@@ -23,26 +23,37 @@ struct card * insert_front(struct card *n, int value, char s){
 	 return n1;
 }
 
-struct card * find_node(struct card *n, int index){
+struct card * find_card(struct card *n, int index){
 	struct card *find = n;
 	if(index == 0) return find;
-	return find_node(find->next,index - 1);
+	return find_card(find->next,index - 1);
 }
 
 
+void copy_card(struct card * copy_into, struct card * to_copy){
+  copy_into -> face = to_copy -> face;
+  copy_into -> suit = to_copy -> suit;
+}
+
+struct card * free_list(struct card *n){
+  while(n != NULL){
+    struct card *freed = n;
+    n = n->next;
+    free(freed);
+	freed = NULL;
+  }
+  return n;
+}
 
 
-// struct card * free_list(struct card *n){
-// 	 struct card *freecard = n;
-// 	 n = n->next;
-// 	 freecard = NULL;
-// 	 free(freecard);
-// 	 return n;
-// }
-//
 struct card * remove_front(struct card *front){
     struct card *cardToRemove = front;
     front = front->next;
     free(cardToRemove);
     return front;
+}
+
+int listsize(struct card *cards){
+	if(cards == NULL) return 0;
+	return 1 + listsize(cards->next);
 }
