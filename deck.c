@@ -1,5 +1,4 @@
 #include "deck.h"
-#include "linked_list.h"
 
 struct card * create_deck(){
 	struct card * first = malloc(sizeof(struct card));
