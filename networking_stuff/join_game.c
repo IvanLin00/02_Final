@@ -1,24 +1,42 @@
 #include "networking.h"
 
-int main() {
+int main(int argc, char **argv) {
 
   int server_socket;
-  int listen_socket, client_socket;
   char buffer[BUFFER_SIZE];
 
   fd_set read_fds;
 
+  printf("Welcome?\n");
+  if(argc == 2) server_socket = client_setup(argv[1]);
+  else server_socket = client_setup(TEST_IP);
+
   while (1) {
-    printf("Enter p for poker: ");
-    fgets(buffer, sizeof(buffer), stdin);
-    *strchr(buffer, '\n') = 0;
-    if(strcmp(buffer,"p")){
-      printf("Error. Emergency Exit\n");
-      return 0;
-    }
-    printf("Enter your IP Address: ");
-    fgets(buffer, sizeof(buffer), stdin);
-    *strchr(buffer, '\n') = 0;
     printf("Connected!\nWaiting for other players...");
-  }
+
+    fflush(stdout);
+
+    FD_ZERO(&read_fds);
+    FD_SET(STDIN_FILENO, &read_fds); //add stdin to fd set
+    FD_SET(server_socket, &read_fds); //add socket to fd set
+
+    //select will block until either fd is ready
+    select(server_socket + 1, &read_fds, NULL, NULL, NULL);
+
+    if (FD_ISSET(STDIN_FILENO, &read_fds)) {
+      fgets(buffer, sizeof(buffer), stdin);
+      *strchr(buffer, '\n') = 0;
+      write(server_socket, buffer, sizeof(buffer));
+      read(server_socket, buffer, sizeof(buffer));
+      printf("received: [%s]\n", buffer);
+    }
+
+    if (FD_ISSET(server_socket, &read_fds)) {
+      read(server_socket, buffer, sizeof(buffer));
+      //the above printf does not have \n
+      //flush the buffer to immediately print
+      fflush(stdout);
+    }//end socket select
+
+  }//end loop
 }

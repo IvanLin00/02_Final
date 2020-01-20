@@ -2,34 +2,42 @@
 //WIP
 
 int main(int argc, char **argv){
-  int server_socket;
-  char buffer[BUFFER_SIZE];
+  //int server_socket;
+  int listen_socket, client_socket, num_players;
+  int current_players = 1;
+  char game_mode[BUFFER_SIZE], players[BUFFER_SIZE];
 
-  while(1){
-    printf("Enter p for poker: ");
-    fgets(buffer, sizeof(buffer), stdin);
-    *strchr(buffer, '\n') = 0;
-    if(strcmp(buffer,"p")){
-      printf("Error. Emergency Exit\n");
-      return 0;
-    }
-    printf("Enter your IP Address: ");
-    fgets(buffer, sizeof(buffer), stdin);
-    *strchr(buffer, '\n') = 0;
-    if(argc == 2) server_socket = client_setup(argv[1]);
-    else server_socket = client_setup(buffer);
-    write(server_socket, buffer, sizeof(buffer));
-    read(server_socket, buffer, sizeof(buffer));
+  fd_set read_fds;
 
-    printf("Waiting for players... Type start if all players joined\n");
-    fgets(buffer, sizeof(buffer), stdin);
-
-    if(!strcmp(buffer, "start")){
-      write(server_socket, buffer, sizeof(buffer));
-      read(server_socket, buffer, sizeof(buffer));
-    }
-    //have the main server run program somehow...
+  printf("Enter p for poker: ");
+  fgets(game_mode, sizeof(game_mode), stdin);
+  *strchr(game_mode, '\n') = 0;
+  if(strcmp(game_mode,"p")){
+    printf("Error. Emergency Exit\n");
+    return 0;
   }
 
+  printf("How many players (must be less than 4 and greater than 1): ");
+  fgets(players, sizeof(players), stdin);
+  *strchr(players, '\n') = 0;
+  sscanf(players, "%d", &num_players);
+
+  printf("Waiting for players... Type start if all players joined\n");
+  listen_socket = server_setup();
+
+  while (current_players < num_players) {
+    //printf("someone tryin to join\n");
+    FD_ZERO(&read_fds);
+    FD_SET(STDIN_FILENO, &read_fds);
+    FD_SET(listen_socket, &read_fds);
+
+    select(listen_socket + 1, &read_fds, NULL, NULL, NULL);
+
+    if (FD_ISSET(listen_socket, &read_fds)) {
+      current_players++;
+    }
+  }
+  printf("All players joined! Starting game...\n");
+  //run_game();
   return 0;
 }
