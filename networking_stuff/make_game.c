@@ -36,8 +36,6 @@ int main(int argc, char **argv){
       client_socket = server_connect(listen_socket);
       printf("A player has joined!\n");
       current_players++;
-      //this doesn't work ...
-      //after joining instantly starts?
     }
   }
   printf("All players joined! Starting game...\n");
