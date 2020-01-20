@@ -22,11 +22,10 @@ int main(int argc, char **argv){
   *strchr(players, '\n') = 0;
   sscanf(players, "%d", &num_players);
 
-  printf("Waiting for players... Type start if all players joined\n");
+  printf("Waiting for players...\n");
   listen_socket = server_setup();
 
   while (current_players < num_players) {
-    //printf("someone tryin to join\n");
     FD_ZERO(&read_fds);
     FD_SET(STDIN_FILENO, &read_fds);
     FD_SET(listen_socket, &read_fds);
@@ -34,6 +33,7 @@ int main(int argc, char **argv){
     select(listen_socket + 1, &read_fds, NULL, NULL, NULL);
 
     if (FD_ISSET(listen_socket, &read_fds)) {
+      printf("A player has joined!\n");
       current_players++;
     }
   }

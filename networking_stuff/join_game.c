@@ -3,24 +3,26 @@
 int main(int argc, char **argv) {
 
   int server_socket;
-  char buffer[BUFFER_SIZE];
+  char ip[BUFFER_SIZE], buffer[BUFFER_SIZE];
 
   fd_set read_fds;
 
-  printf("Welcome?\n");
-  if(argc == 2) server_socket = client_setup(argv[1]);
-  else server_socket = client_setup(TEST_IP);
+  printf("Enter the IP Address of the game: ");
+  fgets(ip, sizeof(ip), stdin);
+  *strchr(ip, '\n');
+
+  if (argc == 2) server_socket = client_setup(argv[1]);
+  else server_socket = client_setup(ip);
+
+  printf("Connected!\nWaiting for other players...");
 
   while (1) {
-    printf("Connected!\nWaiting for other players...");
-
     fflush(stdout);
 
     FD_ZERO(&read_fds);
-    FD_SET(STDIN_FILENO, &read_fds); //add stdin to fd set
-    FD_SET(server_socket, &read_fds); //add socket to fd set
+    FD_SET(STDIN_FILENO, &read_fds);
+    FD_SET(server_socket, &read_fds);
 
-    //select will block until either fd is ready
     select(server_socket + 1, &read_fds, NULL, NULL, NULL);
 
     if (FD_ISSET(STDIN_FILENO, &read_fds)) {
@@ -28,15 +30,12 @@ int main(int argc, char **argv) {
       *strchr(buffer, '\n') = 0;
       write(server_socket, buffer, sizeof(buffer));
       read(server_socket, buffer, sizeof(buffer));
-      printf("received: [%s]\n", buffer);
     }
 
     if (FD_ISSET(server_socket, &read_fds)) {
       read(server_socket, buffer, sizeof(buffer));
-      //the above printf does not have \n
-      //flush the buffer to immediately print
       fflush(stdout);
-    }//end socket select
-
-  }//end loop
+    }
+  }
+  return 0;
 }
