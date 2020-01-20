@@ -1,3 +1,7 @@
+#include <stdlib.h>
+#include <stdio.h>
+#include <time.h>
+#include "linked_list.h"
 #include "deck.h"
 
 struct card * create_deck(){

@@ -1,3 +1,6 @@
+#include "linked_list.h"
+#include <stdio.h>
+#include <stdlib.h>
 #include "hand_flop.h"
 
 struct card * create_hand(struct card * deck){

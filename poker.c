@@ -1,6 +1,7 @@
 #include "deck.h"
 #include "linked_list.h"
 #include "hand_flop.h"
+#include "winning_hand.h"
 #include <stdlib.h>
 #include <stdio.h>
 #include <time.h>
@@ -10,7 +11,7 @@ int main(){
   struct card * deck = create_deck();
   printf("%s\n", "original deck: ");
   print_list(deck);
-  for(int i = 0; i< 1; i++){
+  for(int i = 0; i< 4; i++){
 /*----------------------------------------------------------------------
  testing making 4 player hands*/
     printf("\nhands\n");
@@ -38,7 +39,7 @@ int main(){
     print_hand(p4_hand,2);
     deck = remove_front(deck);
     deck = remove_front(deck);
-
+    printf("\n");
 /*----------------------------------------------------------------------
  testing making the 5 cards on the table */
     printf("flop\n");
@@ -57,7 +58,7 @@ int main(){
     addto_flop(flop,4,deck);
     deck = remove_front(deck);
     print_hand(flop,5);
-
+    printf("\n");
 /*----------------------------------------------------------------------
  testing the deck after all the cards dealt */
     printf("dealt cards from deck\n");

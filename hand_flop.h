@@ -1,7 +1,3 @@
-#include "linked_list.h"
-#include <stdio.h>
-#include <stdlib.h>
-
 struct card * create_hand(struct card * deck);
 void print_hand(struct card * hand, int num);
 struct card * create_flop(struct card * deck);
