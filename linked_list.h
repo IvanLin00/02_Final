@@ -9,3 +9,4 @@ struct card * free_list(struct card *);
 struct card * remove_front(struct card *front);
 struct card * find_card(struct card * deck, int index);
 int listsize(struct card *cards);
+void print(struct card n);
