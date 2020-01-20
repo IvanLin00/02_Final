@@ -60,7 +60,6 @@ struct card * create_hand(struct card *deck){
 	char sui = find_card(deck,1)->suit;
 	hand = insert_front(hand, deck->face,deck->suit);
 	hand = insert_front(hand,fac, sui);
-	find_card(hand,1)->next = NULL;
   *deck = *remove_front(deck);
 	*deck = *remove_front(deck);
 	return hand;

@@ -1,6 +1,5 @@
 #include "deck.h"
 #include "linked_list.h"
-//#include "winning_hand.h"
 #include <stdlib.h>
 #include <stdio.h>
 #include <time.h>
@@ -14,7 +13,9 @@ int main(){
     printf("\nhand\n");
     struct card * hand = create_hand(deck);
     print_list(hand);
+    printf("did free run?\n");
     hand = free_list(hand);
+    printf("yes\n");
     print_list(hand);
     printf("\ndeck after dealing hand\n");
     print_list(deck);

@@ -4,7 +4,7 @@
 
 void print_list(struct card *n){
   printf("[ ");
-  while(n != NULL){
+  while(n -> next != NULL){
     if(n->face == 11) printf("jack of %c | ", n->suit );
     else if(n->face == 12) printf("queen of %c | ", n->suit );
     else if(n->face == 13) printf("king of %c | ", n->suit );
@@ -34,7 +34,7 @@ struct card * free_list(struct card *n){
     struct card *freed = n;
     n = n->next;
     free(freed);
-	freed = NULL;
+    freed = NULL;
   }
   return n;
 }
