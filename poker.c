@@ -10,32 +10,57 @@ int main(){
   struct card * deck = create_deck();
   printf("%s\n", "original deck: ");
   print_list(deck);
-  for(int i = 0; i< 4; i++){
+  for(int i = 0; i< 1; i++){
+/*----------------------------------------------------------------------
+ testing making 4 player hands*/
     printf("\nhands\n");
 
+//hand of player 1
     struct card * p1_hand = create_hand(deck);
-    print_hand(p1_hand);
+    print_hand(p1_hand,2);
+    deck = remove_front(deck);
+    deck = remove_front(deck);
 
+//hand of player 2
     struct card * p2_hand = create_hand(deck);
-    print_hand(p2_hand);
+    print_hand(p2_hand,2);
+    deck = remove_front(deck);
+    deck = remove_front(deck);
 
+//hand of player 3
     struct card * p3_hand = create_hand(deck);
-    print_hand(p3_hand);
+    print_hand(p3_hand,2);
+    deck = remove_front(deck);
+    deck = remove_front(deck);
 
+//hand of player 4
     struct card * p4_hand = create_hand(deck);
-    print_hand(p4_hand);
+    print_hand(p4_hand,2);
+    deck = remove_front(deck);
+    deck = remove_front(deck);
 
-    struct card * flop = create_flop(deck,0);
+/*----------------------------------------------------------------------
+ testing making the 5 cards on the table */
+    printf("flop\n");
 
-    printf("remove cards from deck\n");
+    struct card * flop = create_flop(deck);
+    print_hand(flop,5);
+
     deck = remove_front(deck);
     deck = remove_front(deck);
     deck = remove_front(deck);
+
+    addto_flop(flop,3,deck);
     deck = remove_front(deck);
+    print_hand(flop,5);
+
+    addto_flop(flop,4,deck);
     deck = remove_front(deck);
-    deck = remove_front(deck);
-    deck = remove_front(deck);
-    deck = remove_front(deck);
+    print_hand(flop,5);
+
+/*----------------------------------------------------------------------
+ testing the deck after all the cards dealt */
+    printf("dealt cards from deck\n");
     print_list(deck);
   }
  return 0;

@@ -4,12 +4,12 @@
 
 void print(struct card n){
   printf("[ ");
-  if(n.face == 11) printf("jack of %c | ", n.suit );
-  else if(n.face == 12) printf("queen of %c | ", n.suit );
-  else if(n.face == 13) printf("king of %c | ", n.suit );
-  else if(n.face == 1) printf("ace of %c | ", n.suit );
-  else printf("%d of %c | ", n.face, n.suit );
-  printf("]\n");
+  if(n.face == 11) printf("jack of %c ", n.suit );
+  else if(n.face == 12) printf("queen of %c ", n.suit );
+  else if(n.face == 13) printf("king of %c ", n.suit );
+  else if(n.face == 1) printf("ace of %c ", n.suit );
+  else printf("%d of %c ", n.face, n.suit );
+  printf("], ");
 }
 
 void print_list(struct card *n){

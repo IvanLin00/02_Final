@@ -1,7 +1,4 @@
 #include "hand_flop.h"
-#include "linked_list.h"
-#include <stdio.h>
-#include <stdlib.h>
 
 struct card * create_hand(struct card * deck){
   static struct card hand[2];
@@ -10,16 +7,23 @@ struct card * create_hand(struct card * deck){
   return hand;
 }
 
-void print_hand(struct card * hand){
-  print(hand[0]);
-  print(hand[1]);
+void print_hand(struct card * hand, int num){
+  for(int i = 0; i < num; i++)
+    print(hand[i]);
   printf("\n");
 }
 
-struct card * create_flop(struct card * deck, int num_called){
+struct card * create_flop(struct card * deck){
+  struct card * deck_holder = deck;
   static struct card flop[5];
-  for(int i = 0; i < 3 + num_called; i++){
-    flop[i] = *deck;
-    deck = deck->next;
+  for(int i = 0; i < 3; i++){
+    flop[i] = *deck_holder;
+    deck_holder = deck_holder -> next;
   }
+  return flop;
+}
+
+struct card * addto_flop(struct card * flop, int index, struct card * deck){
+  flop[index] = *deck;
+  return flop;
 }
