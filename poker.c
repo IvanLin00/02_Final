@@ -15,6 +15,7 @@ int main(){
     struct card * hand = create_hand(deck);
     print_list(hand);
     hand = free_list(hand);
+    print_list(hand);
     printf("\ndeck after dealing hand\n");
     print_list(deck);
   }
