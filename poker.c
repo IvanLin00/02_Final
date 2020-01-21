@@ -63,7 +63,7 @@ int main(){
  testing the deck after all the cards dealt */
     printf("dealt cards from deck\n");
     print_list(deck);
-
+    make_bal();
   }
  return 0;
 }

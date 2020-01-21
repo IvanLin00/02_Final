@@ -1,5 +1,4 @@
 #include "deck.h"
-#include "hand_flop.h"
 #include "bets.h"
 
 void edit_bal(int bet, char condition[100]){
