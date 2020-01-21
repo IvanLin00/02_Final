@@ -1,8 +1,6 @@
 #include "networking.h"
-//WIP
 
 int main(int argc, char **argv){
-  //int server_socket;
   int listen_socket, client_socket, num_players;
   int current_players = 1;
   char game_mode[BUFFER_SIZE], players[BUFFER_SIZE];

@@ -22,3 +22,4 @@ run:
 clean:
 	rm *.o
 	rm poker
+	rm ./bets.txt
