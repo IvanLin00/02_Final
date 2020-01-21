@@ -11,12 +11,12 @@
 int main(){
   srand(time(NULL));
   struct card * deck = create_deck();
-  printf("%s\n", "original deck: ");
+  //printf("%s\n", "original deck: ");
   print_list(deck);
   make_bal();
-  // edit_bal(100,"lose",1);
-  // edit_bal(100,"lose",2);
-  // edit_bal(100,"win",3);
+  edit_bal(100,"lose", 1);
+  edit_bal(100,"lose", 2);
+  edit_bal(100,"win", 3);
   for(int i = 0; i< 1; i++){
 /*----------------------------------------------------------------------
  testing making 4 player hands*/
