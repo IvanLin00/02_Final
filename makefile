@@ -1,5 +1,6 @@
-all: poker.o deck.o linked_list.o hand_flop.o winning_hand.o bets.o
-	gcc -o poker poker.o deck.o linked_list.o hand_flop.o winning_hand.o bets.o
+all: join_game.o make_game.o poker.o deck.o linked_list.o hand_flop.o winning_hand.o bets.o
+	gcc -o join_game join_game.o poker.h deck.o linked_list.o hand_flop.o winning_hand.o bets.o
+	gcc -o make_game make_game.o poker.h deck.o linked_list.o hand_flop.o winning_hand.o bets.o
 
 poker.o: poker.c deck.h hand_flop.h
 	gcc -c poker.c
@@ -23,5 +24,6 @@ run:
 
 clean:
 	rm *.o
-	rm poker
+	rm ./join_game
+	rm ./make_game
 	rm ./bets.txt

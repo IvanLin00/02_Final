@@ -3,7 +3,7 @@
 int main(int argc, char **argv){
   int listen_socket, client_socket, num_players;
   int current_players = 1;
-  char game_mode[BUFFER_SIZE], players[BUFFER_SIZE];
+  char game_mode[BUFFER_SIZE], players[BUFFER_SIZE], buffer[BUFFER_SIZE];
 
   fd_set read_fds;
 
@@ -22,6 +22,7 @@ int main(int argc, char **argv){
 
   printf("Waiting for players...\n");
   listen_socket = server_setup();
+  int player_data[num_players - 1];
 
   while (current_players < num_players) {
     FD_ZERO(&read_fds);
@@ -31,12 +32,18 @@ int main(int argc, char **argv){
     select(listen_socket + 1, &read_fds, NULL, NULL, NULL);
 
     if (FD_ISSET(listen_socket, &read_fds)) {
-      client_socket = server_connect(listen_socket);
+      player_data[current_players - 1] = server_connect(listen_socket);
       printf("A player has joined!\n");
       current_players++;
     }
   }
   printf("All players joined! Starting game...\n");
-  //run_game();
+  for(int i = 0; i < num_players - 1; i++){
+    client_socket = player_data[i];
+    strcpy(buffer, "start");
+    write(client_socket, buffer, sizeof(buffer));
+  }
+  //run_game
+  printf("Thank you for playing!\n");
   return 0;
 }

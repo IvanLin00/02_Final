@@ -6,7 +6,7 @@
 #include "hand_flop.h"
 #include "winning_hand.h"
 #include "bets.h"
-
+#include "poker.h"
 
 int main(){
   srand(time(NULL));
