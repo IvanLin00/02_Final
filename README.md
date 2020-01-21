@@ -7,3 +7,5 @@ First, create a game using ./create_game and follow the instructions given.
 Have the other players join using ./join_game.
 Everything else will be terminal prompted.
 Rules for Texas Hold'em can be found online.
+# Bugs
+Will be added in a future date
