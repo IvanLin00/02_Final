@@ -11,3 +11,4 @@ int triple();
 int isDouble(struct hand * hand, struct flop * flop);
 int pair();
 void depopulate();
+int winner(struct hand * p1_hand, struct hand * p2_hand, struct hand * p3_hand, struct hand * p4_hand, struct flop * flop);

@@ -170,16 +170,23 @@ struct card * order(struct hand * hand, struct flop * flop){
   return cards;
 }
 
-int winner(struct card * p1_hand, struct card * p2_hand, struct card * p3_hand, struct card * p4_hand){
+int winner(struct hand * p1_hand, struct hand * p2_hand, struct hand * p3_hand, struct hand * p4_hand, struct flop * flop){
   int handtypes[4];
-  handtypes[0] = hand_type(p1_hand);
-  handtypes[1] = hand_type(p2_hand);
-  handtypes[2] = hand_type(p3_hand);
-  handtypes[3] = hand_type(p4_hand);
+  handtypes[0] = hand_type(p1_hand, flop);
+  handtypes[1] = hand_type(p2_hand, flop);
+  handtypes[2] = hand_type(p3_hand, flop);
+  handtypes[3] = hand_type(p4_hand, flop);
+  for(int i = 0; i < 4; i++){
+    printf("%d hand type %d\n", i, handtypes[i] );
+  }
   return lowest(handtypes);
 }
 
-// int lowest(int * list){
-//   int chanpIndex = 0;
-//   for(int i = 1; i < )
-// }
+int lowest(int * list){
+  int champIndex = 0;
+  for(int i = 1; i < 4; i++){
+    if(list[i] < list[champIndex])
+      champIndex = i;
+  }
+  return champIndex;
+}
