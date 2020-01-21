@@ -3,7 +3,7 @@
 #include "linked_list.h"
 #include "hand_flop.h"
 #include "winning_hand.h"
-
+int card_frequency[14];
 /*
 straight flush: 0
 four of a kind: 1
@@ -18,26 +18,88 @@ high card: 8
 
 int hand_type(struct hand * hand, struct flop * flop){
   if(flush(hand,flop)){
-    // if(straight)
-    //   return 0;
-    // else
+    if(straight(hand,flop))
+      return 0;
+    else
      return 3;
   }
-  // if(two_pair)
-  //   return 6;
-  // if(pair)
-  //   return 7;
-  // if(straight)
-  //   return 4;
-  // if(triple){
-  //   if(house)
-  //     return 2;
-  //   else
-  //     return 5;
-  // }
-  // if(quad)
-  //   return 1;
+  if(isTriple(hand,flop)){
+    if(isDouble(hand,flop))
+      return 2;
+    else
+      return 5;
+  }
+  if(isDouble(hand,flop) == 2)
+    return 6;
+  if(isDouble(hand,flop))
+    return 7;
+  if(straight(hand,flop))
+    return 4;
+  if(isQuad(hand,flop))
+    return 1;
   return 8;
+}
+
+int isQuad(struct hand * hand,struct flop * flop){
+  struct card * cards = order(hand, flop);
+  populate_freq(cards);
+  int returnval = quad();
+  depopulate();
+  return returnval;
+}
+
+int quad(){
+  for(int i = 1; i < 14; i++){
+    if(card_frequency[i] == 4)
+      return 1;
+  }
+  return 0;
+}
+
+int isTriple(struct hand * hand,struct flop * flop){
+  struct card * cards = order(hand, flop);
+  populate_freq(cards);
+  int returnval = triple();
+  depopulate();
+  return returnval;
+}
+
+int triple(){
+  for(int i = 1; i < 14; i++){
+    if(card_frequency[i] == 3)
+      return 1;
+  }
+  return 0;
+}
+
+
+int isDouble(struct hand * hand,struct flop * flop){
+  struct card * cards = order(hand, flop);
+  populate_freq(cards);
+  int returnval = pair();
+  depopulate();
+  return returnval;
+}
+
+int pair(){
+  int numDouble = 0;
+  for(int i = 1; i < 14; i++){
+    if(card_frequency[i] == 2)
+      numDouble++;
+  }
+  return numDouble;
+}
+
+void populate_freq(struct card * card){
+  for(int i = 0; i < 7; i++){
+    card_frequency[card[i].face]++;
+  }
+}
+
+void depopulate(){
+  for(int i = 0; i < 14; i++){
+    card_frequency[i] = 0;
+  }
 }
 
 int flush(struct hand * hand, struct flop * flop){
@@ -56,34 +118,68 @@ int flush(struct hand * hand, struct flop * flop){
 }
 
 int straight(struct hand * hand, struct flop * flop){
-  return 0;
-  //idea combine hand and flop into a single array, sort the array, then compare the numbers in adjacent index to see is its +-1
+  int numconsecutive = 1;
+  struct card * cards = order(hand,flop);
+  for(int i = 0; i < 7; i++){
+    printf("%d \n", cards[i].face);
+  }
+  for(int i = 0; i < 4; i++){
+    if(cards[i].face + 1 == cards[i+1].face)
+      numconsecutive++;
+  }
+  if (numconsecutive < 5)
+    numconsecutive = 0;
+  for(int i = 1; i < 5; i++){
+    if(cards[i].face + 1 == cards[i+1].face)
+      numconsecutive++;
+  }
+  if (numconsecutive < 5)
+    numconsecutive = 0;
+  for(int i = 2; i < 6; i++){
+    if(cards[i].face + 1 == cards[i+1].face)
+      numconsecutive++;
+  }
+  if (numconsecutive < 5)
+    return 0;
+  return 1;
 }
 
-struct all_cards sort_cards(struct hand * hand, struct flop * flop){
-  int hand_index = 0;
-  int flop_index = 0;
-  struct all_cards all = malloc(sizeof(struct all_cards));
-
-  for(int cards_index = 0; cards_index < 7; cards_index ++){
-    if (cards_index < 5){
-      all[cards_index] = hand[hand_index];
-      hand_index ++;
-    }
+struct card * order(struct hand * hand, struct flop * flop){
+  static struct card cards[7];
+  cards[0] = hand->hand[0];
+  if(hand->hand[1].face < cards[0].face){
+    cards[1] = cards[0];
+    cards[0] = hand->hand[1];
+  }
+  else
+   cards[1] = hand->hand[1];
+  int num_inserted = 2;
+  for(int n = 0; n < flop->size; n++){
+    if(flop->flop[n].face >= cards[num_inserted - 1].face)
+      cards[num_inserted] = flop->flop[n];
     else{
-      all[cards_index] = flop[flop_index];
-      flop_index ++;
+      for(int tocomp = num_inserted; tocomp > 0; tocomp--){
+        while(flop->flop[n].face < cards[tocomp - 1].face){
+          cards[tocomp] = cards[tocomp-1];
+          cards[tocomp-1] = flop->flop[n];
+        }
+      }
     }
+    num_inserted++;
   }
-  struct all_cards sorted_array = malloc(sizeof(struct all_cards));
-  int highest_index = 0;
-  for(int sorted_index = 0; sorted_index < 7 ; sorted_index ++){
-    for(int index = 0; index < 7; index ++){
-      if(all[index] > all[highest_index]) highest_index = index;
-    }
-    sorted_array[sorted_index] = all[highest_index];
-    all[highest_index].face = 0;
-    highest_index = 0;
-  }
-  return sorted_array;
+  return cards;
 }
+
+int winner(struct card * p1_hand, struct card * p2_hand, struct card * p3_hand, struct card * p4_hand){
+  int handtypes[4];
+  handtypes[0] = hand_type(p1_hand);
+  handtypes[1] = hand_type(p2_hand);
+  handtypes[2] = hand_type(p3_hand);
+  handtypes[3] = hand_type(p4_hand);
+  return lowest(handtypes);
+}
+
+// int lowest(int * list){
+//   int chanpIndex = 0;
+//   for(int i = 1; i < )
+// }

@@ -1,8 +1,13 @@
-struct all_cards{
-  struct card hand[7];
-};
-
 int hand_type(struct hand * hand, struct flop * flop);
 int flush(struct hand * hand, struct flop * flop);
-struct all_cards sort_cards(struct hand * hand, struct flop * flop)
-int straight(struct hand * hand, struct flop * flop)
+int straight(struct hand * hand, struct flop * flop);
+int lowest(int * list);
+struct card * order(struct hand *hand, struct flop * flop);
+void populate_freq(struct card * card);
+int isQuad(struct hand * hand, struct flop * flop);
+int quad();
+int isTriple(struct hand * hand, struct flop * flop);
+int triple();
+int isDouble(struct hand * hand, struct flop * flop);
+int pair();
+void depopulate();

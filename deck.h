@@ -1,4 +1,4 @@
-#define DECK_SIZE 26
+#define DECK_SIZE 52
 
 struct card * deal_card(struct card * deck);
 struct card * create_deck();
