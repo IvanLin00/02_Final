@@ -17,27 +17,27 @@ int main(){
     printf("\nhands\n");
 
 //hand of player 1
-    struct card * p1_hand = create_hand(deck);
+    struct hand * p1_hand = create_hand(deck);
     printf("pl hand\n");
-    print_hand(p1_hand,2);
+    print_hand(p1_hand);
     deck = remove_front(deck);
     deck = remove_front(deck);
 
 //hand of player 2
-    struct card * p2_hand = create_hand(deck);
-    print_hand(p2_hand,2);
+    struct hand * p2_hand = create_hand(deck);
+    print_hand(p2_hand);
     deck = remove_front(deck);
     deck = remove_front(deck);
 
 //hand of player 3
-    struct card * p3_hand = create_hand(deck);
-    print_hand(p3_hand,2);
+    struct hand * p3_hand = create_hand(deck);
+    print_hand(p3_hand);
     deck = remove_front(deck);
     deck = remove_front(deck);
 
 //hand of player 4
-    struct card * p4_hand = create_hand(deck);
-    print_hand(p4_hand,2);
+    struct hand * p4_hand = create_hand(deck);
+    print_hand(p4_hand);
     deck = remove_front(deck);
     deck = remove_front(deck);
     printf("\n");
@@ -45,22 +45,21 @@ int main(){
  testing making the 5 cards on the table */
     printf("flop\n");
 
-    struct card * flop = create_flop(deck);
-    print_hand(flop,flop[5].face);
+    struct flop * flop = create_flop(deck);
+    print_flop(flop);
 
     deck = remove_front(deck);
     deck = remove_front(deck);
     deck = remove_front(deck);
 
-    addto_flop(flop,flop[5].face,deck);
+    addto_flop(flop,flop->size,deck);
     deck = remove_front(deck);
-    print_hand(flop,flop[5].face);
+    print_flop(flop);
 
-    addto_flop(flop,flop[5].face,deck);
+    addto_flop(flop,flop->size,deck);
     deck = remove_front(deck);
-    print_hand(flop,flop[5].face);
+    print_flop(flop);
     printf("\n");
-    printf("%d\n",flush(p1_hand,flop,flop[5].face));
 /*----------------------------------------------------------------------
  testing the deck after all the cards dealt */
     printf("dealt cards from deck\n");
