@@ -23,27 +23,26 @@ int main(){
     printf("\nhands\n");
 
 //hand of player 1
-    struct hand * p1_hand = create_hand(deck);
-    printf("pl hand\n");
-    print_hand(p1_hand);
+    struct hand * p0_hand = create_hand(deck);
+    print_hand(p0_hand);
     deck = remove_front(deck);
     deck = remove_front(deck);
 
 //hand of player 2
+    struct hand * p1_hand = create_hand(deck);
+    print_hand(p1_hand);
+    deck = remove_front(deck);
+    deck = remove_front(deck);
+
+//hand of player 3
     struct hand * p2_hand = create_hand(deck);
     print_hand(p2_hand);
     deck = remove_front(deck);
     deck = remove_front(deck);
 
-//hand of player 3
+//hand of player 4
     struct hand * p3_hand = create_hand(deck);
     print_hand(p3_hand);
-    deck = remove_front(deck);
-    deck = remove_front(deck);
-
-//hand of player 4
-    struct hand * p4_hand = create_hand(deck);
-    print_hand(p4_hand);
     deck = remove_front(deck);
     deck = remove_front(deck);
     printf("\n");
@@ -66,7 +65,7 @@ int main(){
     deck = remove_front(deck);
     print_flop(flop);
     printf("\n");
-    printf("player %d wins \n",winner(p1_hand,p2_hand,p3_hand,p4_hand,flop));
+    printf("player %d wins \n",winner(p0_hand,p1_hand,p2_hand,p3_hand,flop));
 /*----------------------------------------------------------------------
  testing the deck after all the cards dealt */
   //  printf("dealt cards from deck\n");

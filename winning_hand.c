@@ -120,9 +120,6 @@ int flush(struct hand * hand, struct flop * flop){
 int straight(struct hand * hand, struct flop * flop){
   int numconsecutive = 1;
   struct card * cards = order(hand,flop);
-  for(int i = 0; i < 7; i++){
-    printf("%d \n", cards[i].face);
-  }
   for(int i = 0; i < 4; i++){
     if(cards[i].face + 1 == cards[i+1].face)
       numconsecutive++;
@@ -170,23 +167,83 @@ struct card * order(struct hand * hand, struct flop * flop){
   return cards;
 }
 
-int winner(struct hand * p1_hand, struct hand * p2_hand, struct hand * p3_hand, struct hand * p4_hand, struct flop * flop){
-  int handtypes[4];
-  handtypes[0] = hand_type(p1_hand, flop);
-  handtypes[1] = hand_type(p2_hand, flop);
-  handtypes[2] = hand_type(p3_hand, flop);
-  handtypes[3] = hand_type(p4_hand, flop);
+int winner(struct hand * p0_hand, struct hand * p1_hand, struct hand * p2_hand, struct hand * p3_hand, struct flop * flop){
+  struct hand * all[4];
+  all[0] = p0_hand;
+  all[1] = p1_hand;
+  all[2] = p2_hand;
+  all[3] = p3_hand;
+
+  static struct winning * playerhand[4];
+  struct winning * p0 = calloc(1,sizeof(struct winning));
+  struct winning * p1 = calloc(1,sizeof(struct winning));
+  struct winning * p2 = calloc(1,sizeof(struct winning));
+  struct winning * p3 = calloc(1,sizeof(struct winning));
+  playerhand[0] = p0;
+  playerhand[1] = p1;
+  playerhand[2] = p2;
+  playerhand[3] = p3;
   for(int i = 0; i < 4; i++){
-    printf("%d hand type %d\n", i, handtypes[i] );
+    playerhand[i]->playernum = i;
+    playerhand[i]->handtype = hand_type(all[i],flop);
+    printf("%d \n", playerhand[i]->handtype);
   }
-  return lowest(handtypes);
+
+  int freq = lowest(playerhand);
+  int winner = 0;
+  for(int i = 0; i < 4; i++){
+    if(playerhand[i]->isWin ==  1)
+      winner = i;
+  }
+  if(freq == 1)
+    return winner;
+  else
+    return tiebreaker(playerhand);
 }
 
-int lowest(int * list){
+int lowest(struct winning ** playerhand){
   int champIndex = 0;
+  int freq = 0;
   for(int i = 1; i < 4; i++){
-    if(list[i] < list[champIndex])
+    if(playerhand[i]->handtype < playerhand[champIndex]->handtype)
       champIndex = i;
   }
-  return champIndex;
+  int wintype = playerhand[champIndex]->handtype;
+  for(int i = 0; i < 4; i++){
+    if(playerhand[i]->handtype == playerhand[champIndex]->handtype){
+      playerhand[i]->isWin = 1;
+      freq++;
+    }
+  }
+  return freq;
+}
+
+int tiebreaker(struct winning ** playerhand){
+  int win_type = 9;
+  for(int i = 0; win_type==9 && i < 4; i++){
+    if(playerhand[i]->isWin == 1)
+      win_type = playerhand[i]->handtype;
+  }
+  printf("wt %d \n", win_type);
+  if(win_type == 0 || win_type == 4)
+    return compare_straight(playerhand);
+  if(win_type == 1)
+    return 11;
+  if(win_type == 2)
+    return 12;
+  if(win_type == 3)
+    return 13;
+  if(win_type == 5)
+    return 15;
+  if(win_type == 6)
+    return 16;
+  if(win_type == 7)
+    return 17;
+  if(win_type == 8)
+    return 18;
+  return 4;
+}
+
+int compare_straight(struct winning ** playerhand){
+  return 10;
 }

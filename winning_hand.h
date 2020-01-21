@@ -1,7 +1,13 @@
+struct winning{
+  int isWin;
+  int playernum;
+  int handtype;
+  int poker_hand[5];
+};
 int hand_type(struct hand * hand, struct flop * flop);
 int flush(struct hand * hand, struct flop * flop);
 int straight(struct hand * hand, struct flop * flop);
-int lowest(int * list);
+int lowest(struct winning ** list);
 struct card * order(struct hand *hand, struct flop * flop);
 void populate_freq(struct card * card);
 int isQuad(struct hand * hand, struct flop * flop);
@@ -12,3 +18,5 @@ int isDouble(struct hand * hand, struct flop * flop);
 int pair();
 void depopulate();
 int winner(struct hand * p1_hand, struct hand * p2_hand, struct hand * p3_hand, struct hand * p4_hand, struct flop * flop);
+int tiebreaker(struct winning ** playerhand);
+int compare_straight(struct winning ** playerhand);

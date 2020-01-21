@@ -36,7 +36,7 @@ int main(int argc, char **argv) {
       read(server_socket, buffer, sizeof(buffer));
       if(!strcmp(buffer, "start")){
         printf("Game will start now!\n");
-        //run_game();
+        run_game();
         return 0;
       }
       fflush(stdout);

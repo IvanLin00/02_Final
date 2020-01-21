@@ -43,7 +43,7 @@ int main(int argc, char **argv){
     strcpy(buffer, "start");
     write(client_socket, buffer, sizeof(buffer));
   }
-  //run_game
+  run_game();
   printf("Thank you for playing!\n");
   return 0;
 }
