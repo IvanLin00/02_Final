@@ -1,8 +1,8 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include "linked_list.h"
-#include "winning_hand.h"
 #include "hand_flop.h"
+#include "winning_hand.h"
 
 /*
 straight flush: 0
