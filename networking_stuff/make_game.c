@@ -33,6 +33,7 @@ int main(int argc, char **argv){
     select(listen_socket + 1, &read_fds, NULL, NULL, NULL);
 
     if (FD_ISSET(listen_socket, &read_fds)) {
+      client_socket = server_connect(listen_socket);
       printf("A player has joined!\n");
       current_players++;
     }
