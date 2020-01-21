@@ -2,7 +2,7 @@
 #include "linked_list.h"
 #include "hand_flop.h"
 #include "winning_hand.h"
-#include "bets.h"
+//#include "bets.h"
 #include <time.h>
 
 int main(){
@@ -63,7 +63,7 @@ int main(){
  testing the deck after all the cards dealt */
     printf("dealt cards from deck\n");
     print_list(deck);
-    make_bal();
+    //make_bal();
   }
  return 0;
 }

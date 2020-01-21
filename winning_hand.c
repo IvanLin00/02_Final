@@ -56,5 +56,34 @@ int flush(struct hand * hand, struct flop * flop){
 }
 
 int straight(struct hand * hand, struct flop * flop){
+  return 0;
   //idea combine hand and flop into a single array, sort the array, then compare the numbers in adjacent index to see is its +-1
+}
+
+struct all_cards sort_cards(struct hand * hand, struct flop * flop){
+  int hand_index = 0;
+  int flop_index = 0;
+  struct all_cards all = malloc(sizeof(struct all_cards));
+
+  for(int cards_index = 0; cards_index < 7; cards_index ++){
+    if (cards_index < 5){
+      all[cards_index] = hand[hand_index];
+      hand_index ++;
+    }
+    else{
+      all[cards_index] = flop[flop_index];
+      flop_index ++;
+    }
+  }
+  struct all_cards sorted_array = malloc(sizeof(struct all_cards));
+  int highest_index = 0;
+  for(int sorted_index = 0; sorted_index < 7 ; sorted_index ++){
+    for(int index = 0; index < 7; index ++){
+      if(all[index] > all[highest_index]) highest_index = index;
+    }
+    sorted_array[sorted_index] = all[highest_index];
+    all[highest_index].face = 0;
+    highest_index = 0;
+  }
+  return sorted_array;
 }
