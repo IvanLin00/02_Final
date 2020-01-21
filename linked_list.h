@@ -3,6 +3,7 @@ struct card{
   int face; //num 1-13
   struct card * next; //next card
 };
+
 void print_list(struct card *);
 struct card * insert_front(struct card *, int value, char s);
 struct card * free_list(struct card *);

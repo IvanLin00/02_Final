@@ -3,36 +3,42 @@
 #include <stdlib.h>
 #include "hand_flop.h"
 
-struct card * create_hand(struct card * deck){
-  static struct card hand[2];
-  hand[0] = *deck;
-  hand[1] = *(deck -> next);
-  return hand;
+struct hand * create_hand(struct card * deck){
+  struct hand * hole = malloc(sizeof(struct hand));
+  hole->hand[0] = *deck;
+  hole->hand[1] = *(deck -> next);
+  return hole;
 }
 
-void print_hand(struct card * hand, int num){
-  for(int i = 0; i < num; i++)
-    print(hand[i]);
+void print_hand(struct hand * hand){
+  for(int i = 0; i < 2; i++)
+    print(hand->hand[i]);
   printf("\n");
 }
 
-struct card * create_flop(struct card * deck){
+struct flop * create_flop(struct card * deck){
   struct card * null = calloc(1,sizeof(struct card));
   struct card * deck_holder = deck;
-  static struct card flop[6];
+  struct flop * flop = malloc(sizeof(struct flop));
   for(int i = 0; i < 3; i++){
-    flop[i] = *deck_holder;
+    flop->flop[i] = *deck_holder;
     deck_holder = deck_holder -> next;
   }
-  flop[3] = *null;
-  flop[4] = *null;
-  flop[5].face = 3;           //flop[5] stores the size
+  flop->flop[3] = *null;
+  flop->flop[4] = *null;
+  flop->size = 3;
   free(null);
   return flop;
 }
 
-struct card * addto_flop(struct card * flop, int index, struct card * deck){
-  flop[index] = *deck;
-  flop[5].face++;
+struct flop * addto_flop(struct flop * flop, int index, struct card * deck){
+  flop->flop[index] = *deck;
+  flop->size++;
   return flop;
+}
+
+void print_flop(struct flop * flop){
+  for(int i = 0; i < flop->size; i++)
+    print(flop->flop[i]);
+  printf("\n");
 }
