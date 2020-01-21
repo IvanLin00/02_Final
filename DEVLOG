@@ -1,0 +1,26 @@
+# Dev Log
+1/9/2020:
+   - modified linked_list functions to work with the struct card: done together in class
+   - struct card * create_deck(): done in class together
+      - creates a standard deck of cards, linked list of 52 cards, shuffles afterwards, returns shuffled deck
+   - void shuffle(struct card * deck): Jimmy Luo
+      - takes a deck and swaps a card in every position with a card in another random position
+   - void swap(struct card * deck, int first, int second): Jimmy Luo
+      - swaps card in position first with card in position second
+
+1/10/2020
+   - struct card * deal_card(struct card * deck): done in class together
+      - deals the first card, print card dealt, returns new top card.
+
+1/14/2020 - 1/21/2020 (Ivan)
+   - worked and struggled through networking
+   - the make_game function creates the game and also serves as the server
+   - have not found any bugs yet (hopefully there aren't)
+
+1/20/2020
+   - created bets.c and bets.h to track bets through text files
+   - void edit_bal(int bet, char condition[100], int round): Ivan Lin
+      - when a player makes a bet, edit_bal will add or subtract base on if the player won or not
+      - could be coded better and ideally using FILE but this seemed to worked
+   - void make_bal(): Ivan Lin
+      - initializes the balance, giving each player $200 each
