@@ -1,0 +1,1 @@
+int quad(int * cards);

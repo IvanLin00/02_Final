@@ -1,0 +1,1 @@
+int straight(int * list);

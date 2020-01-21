@@ -1,4 +1,5 @@
 #include "networking.h"
+#include "poker.h"
 
 int main(int argc, char **argv){
   int listen_socket, client_socket, num_players;
@@ -15,10 +16,11 @@ int main(int argc, char **argv){
     return 0;
   }
 
-  printf("How many players (must be less than 4 and greater than 1): ");
-  fgets(players, sizeof(players), stdin);
-  *strchr(players, '\n') = 0;
-  sscanf(players, "%d", &num_players);
+  // printf("How many players (must be less than 4 and greater than 1): ");
+  // fgets(players, sizeof(players), stdin);
+  // *strchr(players, '\n') = 0;
+  // sscanf(players, "%d", &num_players);
+  num_players = 4;
 
   printf("Waiting for players...\n");
   listen_socket = server_setup();
