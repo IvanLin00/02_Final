@@ -1,8 +1,11 @@
-all: poker.o deck.o linked_list.o hand_flop.o winning_hand.o
-	gcc -o poker poker.o deck.o linked_list.o hand_flop.o winning_hand.o
+all: poker.o deck.o linked_list.o hand_flop.o winning_hand.o bets.o
+	gcc -o poker poker.o deck.o linked_list.o hand_flop.o winning_hand.o bets.o
 
 poker.o: poker.c deck.h hand_flop.h winning_hand.h
 	gcc -c poker.c
+
+bets.o: bets.c deck.h hand_flop.h
+	gcc -c bets.c
 
 deck.o: deck.c deck.h linked_list.h
 	gcc -c deck.c
