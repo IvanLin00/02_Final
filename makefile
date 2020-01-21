@@ -13,7 +13,7 @@ linked_list.o: linked_list.c linked_list.h
 hand_flop.o: hand_flop.c hand_flop.h linked_list.h
 	gcc -c hand_flop.c
 
-winning_hand.o: winning_hand.c winning_hand.h linked_list.h
+winning_hand.o: winning_hand.c winning_hand.h linked_list.h hand_flop.h
 	gcc -c winning_hand.c
 
 run:

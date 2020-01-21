@@ -17,16 +17,22 @@ void print_hand(struct card * hand, int num){
 }
 
 struct card * create_flop(struct card * deck){
+  struct card * null = calloc(1,sizeof(struct card));
   struct card * deck_holder = deck;
-  static struct card flop[5];
+  static struct card flop[6];
   for(int i = 0; i < 3; i++){
     flop[i] = *deck_holder;
     deck_holder = deck_holder -> next;
   }
+  flop[3] = *null;
+  flop[4] = *null;
+  flop[5].face = 3;           //flop[5] stores the size
+  free(null);
   return flop;
 }
 
 struct card * addto_flop(struct card * flop, int index, struct card * deck){
   flop[index] = *deck;
+  flop[5].face++;
   return flop;
 }
