@@ -39,7 +39,7 @@ int * determine_winner(int * pokerhands){
   int freq = 0;
   int * winners = calloc(freq,sizeof(int));
   int champIndex = min(pokerhands);
-  printf("champIndex %d \n", champIndex);
+  // printf("champIndex %d \n", champIndex);
   int champValue = pokerhands[champIndex];
   for(int i = 0; i < 3; i++){
     if(pokerhands[i] == champValue){
